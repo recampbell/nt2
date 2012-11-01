@@ -9,30 +9,30 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_SHAPE_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_SHAPE_HPP_INCLUDED
 
-#include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/buffer.hpp>
+//#include <nt2/core/settings/option.hpp>
+//#include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/functions/scalar/numel.hpp>
 
 namespace nt2
 {
-  //============================================================================
-  // rectangular_ shape
-  //============================================================================
+  /// @brief rectangular_ shape  option
   struct rectangular_
   {
-    //==========================================================================
-    // rectangular_ just use the buffer we asked for
-    //==========================================================================
-    template<class T, class S> struct apply
+    /// @brief Static interface for building buffer from shape information
+    template<class Container> struct apply
     {
-      typedef typename meta::option<S,tag::buffer_>::type   buffer_t;
-      typedef typename buffer_t::template apply<T,S>::type  type;
+      // typedef typename meta::option < typename Container::settings_type
+      //                               , tag::buffer_
+      //                               , typename Container::semantic_type
+      //                               >::type                     buffer_t;
+      // typedef typename buffer_t::template apply<Container>::type  type;
     };
 
+    /// @brief Computes the number of non-zero element of the current shape
     template<class Size> static
     BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
     {
-      return numel(sz);
+      return nt2::numel(sz);
     }
   };
 }

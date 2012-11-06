@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_EXTRACT_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_EXTRACT_HPP_INCLUDED
 
-#include <nt2/toolbox/operator/functions/extract.hpp>
+#include <nt2/toolbox/memory/functions/extract.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
@@ -40,6 +40,7 @@ namespace nt2 { namespace ext
       return reinterpret_cast<stype BOOST_SIMD_MAY_ALIAS const*>(&a0)[a1];
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_ < arithmetic_<A0> > >)
                               (scalar_< integer_<A1> >)
@@ -52,7 +53,6 @@ namespace nt2 { namespace ext
       return reinterpret_cast<stype BOOST_SIMD_MAY_ALIAS const*>(&a0)[a1];
     }
   };
-
 } }
 
 #endif

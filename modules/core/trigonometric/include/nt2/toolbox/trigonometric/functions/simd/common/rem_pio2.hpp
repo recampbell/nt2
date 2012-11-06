@@ -14,16 +14,14 @@
 #include <nt2/include/functions/simd/rem_pio2_straight.hpp>
 #include <nt2/include/functions/simd/rem_pio2_medium.hpp>
 #include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/load.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/memory/aligned_type.hpp>
 
 namespace nt2 { namespace ext
 {
-
-
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::rem_pio2_, tag::cpu_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                               ((simd_<floating_<A0>,X>))
@@ -48,9 +46,9 @@ namespace nt2 { namespace ext
         txc[i] = c;
       }
 
-      xr = load<A0>(&txr[0], 0);
-      xc = load<A0>(&txc[0], 0);
-      return load<result_type>(&tmp[0], 0);
+      xr = boost::simd::load<A0>(&txr[0], 0);
+      xc = boost::simd::load<A0>(&txc[0], 0);
+      return boost::simd::load<result_type>(&tmp[0], 0);
     }
   };
 

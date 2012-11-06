@@ -12,12 +12,10 @@
 #include <boost/simd/toolbox/swar/functions/split.hpp>
 #include <boost/simd/include/functions/simd/load.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/is_upgradable_to.hpp>
+#include <boost/simd/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/fusion/include/std_pair.hpp>
-#include <boost/mpl/not.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

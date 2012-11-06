@@ -8,36 +8,31 @@
 ################################################################################
 
 SET( SOURCES
-  unary_plus.cpp
-#  store.cpp
-  map.cpp
-#  make.cpp
-#  load.cpp
-  if_else.cpp
-  is_less_equal.cpp
-  is_less.cpp
-  is_greater_equal.cpp
-  is_greater.cpp
-  access.cpp
   bitwise_and.cpp
   bitwise_or.cpp
   bitwise_xor.cpp
   comma.cpp
-  is_equal.cpp
-  is_not_equal.cpp
   complement.cpp
   divides.cpp
+  if_else.cpp
+  is_equal.cpp
+  is_greater.cpp
+  is_greater_equal.cpp
+  is_less.cpp
+  is_less_equal.cpp
+  is_not_equal.cpp
   logical_and.cpp
   logical_not.cpp
   logical_or.cpp
+  map.cpp
   minus.cpp
   modulo.cpp
   multiplies.cpp
-  unary_minus.cpp
   plus.cpp
   shift_left.cpp
   shift_right.cpp
-#  splat.cpp
+  unary_minus.cpp
+  unary_plus.cpp
   )
 
 nt2_module_add_tests(core.operator.simd.unit ${SOURCES})

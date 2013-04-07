@@ -12,6 +12,9 @@
 #include <nt2/toolbox/trigonometric/functions/sec.hpp>
 #include <nt2/include/functions/simd/cospi.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 namespace nt2 { namespace ext
@@ -24,7 +27,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::rec(nt2::cospi(nt2::tofloat(a0)));
+      return nt2::if_nan_else(nt2::is_odd(a0*nt2::Two<A0>()), nt2::rec(nt2::cospi(nt2::tofloat(a0))));
     }
   };
 } }

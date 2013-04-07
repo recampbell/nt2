@@ -9,8 +9,9 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_GENERIC_CSCD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_GENERIC_CSCD_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/functions/cscd.hpp>
-#include <nt2/include/functions/sind.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/simd/cscpi.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/constants/oneo_180.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -34,7 +35,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::rec(nt2::sind(a0));
+      return nt2::cscpi(nt2::Oneo_180<result_type>()*nt2::tofloat(a0));
     }
   };
 } }

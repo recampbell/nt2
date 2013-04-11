@@ -10,13 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSSE3_ABS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/abs.hpp>
-#include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_lez.hpp>
 #include <boost/simd/include/functions/simd/bitwise_notand.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -60,7 +59,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-    { return b_notand(boost::simd::Mzero<A0>(),a0); }
+    { return boost::simd::bitwise_notand(boost::simd::Mzero<A0>(),a0); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
@@ -73,7 +72,7 @@ namespace boost { namespace simd { namespace ext
     {
        typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
        typedef typename meta::scalar_of<int_type>::type   sint_type;
-       A0 const s = shri(a0, 8*sizeof(sint_type)-1);
+       A0 const s = boost::simd::shri(a0, 8*sizeof(sint_type)-1);
        return (a0-s)^(-s);
     }
   };

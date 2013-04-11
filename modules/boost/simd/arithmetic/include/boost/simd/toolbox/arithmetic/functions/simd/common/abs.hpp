@@ -14,7 +14,6 @@
 #include <boost/simd/include/constants/maxleftshift.hpp>
 #include <boost/simd/include/functions/simd/bitwise_notand.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>
-#include <boost/simd/include/functions/simd/negate.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<result_type, signed>::type int_type;
       typedef typename meta::scalar_of<int_type>::type                      sint_type;
-      result_type const s = shri(a0, Maxleftshift<sint_type>());
+      result_type const s = boost::simd::shri(a0, boost::simd::Maxleftshift<sint_type>());
       return (a0-s)^(-s);
     }
   };
@@ -50,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return bitwise_notand(Mzero<result_type>(),a0);
+      return boost::simd::bitwise_notand(boost::simd::Mzero<result_type>(),a0);
     }
   };
 } } }

@@ -9,43 +9,32 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CORRECT_FMA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CORRECT_FMA_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/correct_fma.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/two_prod.hpp>
-#include <boost/simd/include/functions/simd/two_add.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/fma.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
-    {
-      return a0*a1+a2;
-    }
-  };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                              ((simd_<floating_<A0>,X>))
-                              ((simd_<floating_<A0>,X>))
+                            , ((simd_<single_<A0>,X>))
+                              ((simd_<single_<A0>,X>))
+                              ((simd_<single_<A0>,X>))
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      A0 p, rp, s, rs;
-      two_prod(a0, a1, p, rp);
-      two_add(p, a2, s, rs);
-      return s+(rp+rs);
-    }
+      typedef typename dispatch::meta::upgrade<A0>::type ivtype;
+      ivtype a0l, a0h, a1l, a1h, a2l, a2h;
+      boost::simd::split(a0, a0l, a0h);
+      boost::simd::split(a1, a1l, a1h);
+      boost::simd::split(a2, a2l, a2h);
+      return group( boost::simd::fma(a0l, a1l, a2l)
+                  , boost::simd::fma(a0h, a1h, a2h)
+                  );
+     }
   };
 } } }
 

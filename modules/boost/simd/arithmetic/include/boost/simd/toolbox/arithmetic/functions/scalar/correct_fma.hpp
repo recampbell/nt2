@@ -14,38 +14,13 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
-    {
-      return a0*a1+a2;
-    }
-  };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
-    {
-        A0 p, rp, s, rs;
-        two_prod(a0, a1, p, rp);
-        two_add(p, a2, s, rs);
-        return s+(rp+rs);
-//         return ::fma(a0, a1, a2);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
-                            , (A0)
-                            , (scalar_< single_<A0> >)(scalar_< single_<A0> >)(scalar_< single_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< single_<A0> >)
+                                     (scalar_< single_<A0> >)
+                                     (scalar_< single_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)

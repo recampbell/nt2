@@ -26,11 +26,13 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 Nan -> Nan
-      return nt2::if_nan_else(nt2::is_nan(a0),
-                              nt2::if_else_zero(nt2::is_ltz(a0),
-                                                nt2::Pi<result_type>()
-                                               )
-                             );
+      return boost::simd::if_nan_else(
+        boost::simd::is_nan(a0),
+        boost::simd::if_else_zero(
+          boost::simd::is_ltz(a0),
+          boost::simd::Pi<result_type>()
+        )
+      );
     }
   };
 } } }

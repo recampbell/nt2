@@ -20,6 +20,7 @@
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
 #include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
@@ -51,11 +52,11 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_logical<A0>::type bA0;
-      const bA0 iseqza1 = is_eqz(a1);
-      const A0 aa1 = a1+if_else_zero(iseqza1, One<A0>());
+      const bA0 iseqza1 = boost::simd::is_eqz(a1);
+      const A0 aa1 = a1+boost::simd::if_else_zero(iseqza1, boost::simd::One<A0>());
       const A0 r1 = a0/aa1; //a1!= 0
-      const A0 r2 = select(is_eqz(a0),Zero<A0>(),Valmax<A0>());
-      return select(iseqza1, r2, r1);
+      const A0 r2 = boost::simd::if_zero_else(boost::simd::is_eqz(a0),boost::simd::Valmax<A0>());
+      return boost::simd::select(iseqza1, r2, r1);
     }
   };
 
@@ -69,12 +70,17 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_logical<A0>::type bA0;
-      const bA0 iseqza1 = is_eqz(a1);
-      const A0 c = select(logical_and(eq(a0,Valmin<A0>()),eq(a1, Mone<A0>())), One<A0>(), Zero<A0>());
-      const A0 aa1 = a1+if_else_zero(iseqza1, One<A0>());
+      const bA0 iseqza1 = boost::simd::is_eqz(a1);
+      const A0 c = boost::simd::if_else_zero(
+        boost::simd::logical_and(eq(a0,boost::simd::Valmin<A0>()),
+                                 boost::simd::eq(a1, boost::simd::Mone<A0>())
+                                ),
+        boost::simd::One<A0>()
+      );
+      const A0 aa1 = a1+boost::simd::if_else_zero(iseqza1, boost::simd::One<A0>());
       const A0 r1 = (a0+c)/aa1; //a1!= 0
-      const A0 v2 = select(is_ltz(a0),Valmin<A0>(),Valmax<A0>());
-      const A0 r2 = select(is_eqz(a0),Zero<A0>(),v2); //a1 == 0
+      const A0 v2 = boost::simd::select(is_ltz(a0),boost::simd::Valmin<A0>(),boost::simd::Valmax<A0>());
+      const A0 r2 = boost::simd::if_zero_else(is_eqz(a0),v2); //a1 == 0
       return select(iseqza1, r2, r1);
     }
   };

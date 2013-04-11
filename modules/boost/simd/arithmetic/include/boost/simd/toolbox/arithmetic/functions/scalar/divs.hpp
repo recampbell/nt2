@@ -17,52 +17,45 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_ , (A0)
-                            , (scalar_< int_<A0> >)
-                              (scalar_< int_<A0> >)
-                            )
+                                   , (scalar_< int_<A0> >)
+                                     (scalar_< int_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if ((a0 == Valmin<result_type>()) && (a1 == Mone<result_type>()))
-        return Valmax<result_type>();
+      if ((a0 == boost::simd::Valmin<result_type>()) && (a1 == boost::simd::Mone<result_type>()))
+        return boost::simd::Valmax<result_type>();
       else if (a1) return a0/a1;
-      else if (a0 > 0) return Valmax<result_type>();
-      else if (a0 < 0) return Valmin<result_type>();
-      else return Zero<result_type>();
+      else if (a0 > 0) return boost::simd::Valmax<result_type>();
+      else if (a0 < 0) return boost::simd::Valmin<result_type>();
+      else return boost::simd::Zero<result_type>();
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_ , (A0)
-                            , (scalar_< uint_<A0> >)
-                              (scalar_< uint_<A0> >)
-                            )
+                                   , (scalar_< uint_<A0> >)
+                                     (scalar_< uint_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1) return a0/a1;
-      else if (a0 > 0) return Valmax<result_type>();
-      else return Zero<result_type>();
+      else if (a0 > 0) return boost::simd::Valmax<result_type>();
+      else return boost::simd::Zero<result_type>();
     }
   };
-} } }
-
 
 #ifdef BOOST_MSVC
 #pragma warning(push)
 #pragma warning(disable: 4723) // potential divide by 0
 #endif
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
-                        (scalar_< floating_<A0> >)
-                            )
+                                   , (scalar_< floating_<A0> >)
+                                     (scalar_< floating_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0/a1; }

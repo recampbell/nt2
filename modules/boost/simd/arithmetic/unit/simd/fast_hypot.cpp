@@ -16,7 +16,7 @@
 #include <boost/simd/toolbox/arithmetic/include/functions/fast_hypot.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/toolbox/arithmetic/include/functions/hypot.hpp>
-
+#include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -51,4 +51,9 @@ NT2_TEST_CASE_TPL ( fast_hypot_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Sqrt_2<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Valmax<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Valmax<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Zero<vT>(), boost::simd::Valmax<vT>())[0], boost::simd::Valmax<sr_t>(), 0.5);
+  vT z = boost::simd::sqrt(boost::simd::Valmax<vT>());
+  NT2_TEST_ULP_EQUAL(fast_hypot(z, z)[0], z[0]*boost::simd::Sqrt_2<sr_t>(), 0.5);
+
 } // end of test for floating_

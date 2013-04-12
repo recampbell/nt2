@@ -57,33 +57,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /// INTERNAL ONLY - Logical SIMD load with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_, tag::cpu_
-                                    , (A0)(A1)(A2)(X)
-                                    , (iterator_<unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_< simd_< logical_<A2>, X > >))
-                                    )
-  {
-     BOOST_DISPATCH_RETURNS ( 3, (A0 a0, A1 a1, A2 const& a2 )
-                            , boost::simd
-                              ::unaligned_load<typename A2::type>(a0, a1)
-                            );
-  };
-
-  /// INTERNAL ONLY - Logical SIMD load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_, tag::cpu_
-                                    , (A0)(A2)(X)
-                                    , (iterator_<unspecified_<A0> >)
-                                      ((target_<simd_< logical_<A2>, X> >))
-                                    )
-  {
-     BOOST_DISPATCH_RETURNS ( 2, (A0 a0, A2 const& a2)
-                            , boost::simd
-                              ::unaligned_load<typename A2::type>(a0)
-                            );
-  };
-
   /// INTERNAL ONLY - SIMD load with misalignment and offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_, tag::cpu_
                                     , (A0)(A1)(A2)(A3)(X)

@@ -55,41 +55,6 @@ NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
   }
 }
 
-NT2_TEST_CASE_TPL( load_logical,  BOOST_SIMD_SIMD_TYPES)
-{
-  using boost::simd::load;
-  using boost::simd::tag::load_;
-  using boost::simd::logical;
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<logical<T>,ext_t>      vT;
-
-  typedef typename  boost::dispatch::meta
-                  ::call<load_( logical<T>*
-                                        , boost::dispatch::meta::as_<vT>
-                                        )
-                        >::type                     rT;
-
-  NT2_TEST_TYPE_IS( rT, vT );
-
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( data,  logical<T>, cardinal_of<vT>::value*3 );
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( ref , rT, 3 );
-
-  for(std::size_t i=0;i<cardinal_of<vT>::value*3;++i)
-  {
-    data[i] = logical<T>(i%2);
-    ref[i/cardinal_of<vT>::value][i%cardinal_of<vT>::value] = logical<T>(i%2);
-  }
-
-  for(std::size_t i=0;i<3;++i)
-  {
-    rT v = boost::simd::load<vT>(&data[i*cardinal_of<vT>::value]);
-    NT2_TEST_EQUAL(v , ref[i]);
-  }
-}
-
 NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::load;
@@ -131,43 +96,6 @@ NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_SIMD_TYPES)
   v = boost::simd::load<vT>(&data[cardinal_of<vT>::value],+off);
   NT2_TEST_EQUAL(v , ref[2]);
 }
-
-NT2_TEST_CASE_TPL( load_offset_logical,  BOOST_SIMD_SIMD_TYPES)
-{
-  using boost::simd::load;
-  using boost::simd::tag::load_;
-  using boost::simd::logical;
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<logical<T>,ext_t>                        vT;
-
-  typedef typename  boost::dispatch::meta
-                  ::call<load_( logical<T>*
-                              , int
-                              , boost::dispatch::meta::as_<vT>
-                              )
-                        >::type                     rT;
-
-  NT2_TEST_TYPE_IS( rT, vT );
-
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( data,  logical<T>, cardinal_of<vT>::value*3 );
-  BOOST_SIMD_ALIGNED_STACK_BUFFER( ref , rT, 3 );
-
-  for(std::size_t i=0;i<cardinal_of<vT>::value*3;++i)
-  {
-    data[i] = logical<T>(i%2);
-    ref[i/cardinal_of<vT>::value][i%cardinal_of<vT>::value] = logical<T>(i%2);
-  }
-
-  for(std::size_t i=0;i<3;++i)
-  {
-    rT v = boost::simd::load<vT>(&data[0],i*cardinal_of<vT>::value);
-    NT2_TEST_EQUAL(v , ref[i]);
-  }
-}
-
 
 NT2_TEST_CASE_TPL( load_suboffset_periodic,  BOOST_SIMD_SIMD_TYPES)
 {
@@ -374,9 +302,9 @@ NT2_TEST_CASE( load_pointer_of_sequence )
 
   for(size_t i=0;i<native<foo,ext_t>::static_size;++i)
   {
-    data[i].d = int16_t(1+i);
-    data[i].f = float(2+i);
-    data[i].c = char(3+i);
+    data[i].d = short(1+i);
+     data[i].f = float(2+i);
+     data[i].c = char(3+i);
   }
 
   value_at<vT,boost::mpl::int_<0> >::type sref;

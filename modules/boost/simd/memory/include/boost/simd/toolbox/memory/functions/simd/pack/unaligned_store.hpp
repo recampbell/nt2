@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(A1)(A2)
                                     , ((ast_<A0, boost::simd::domain>))
                                       (iterator_< scalar_< fundamental_<A1> > >)
-                                      (generic_< fundamental_<A2> >)
+                                      (generic_< integer_<A2> >)
                                     )
   {
     typedef typename remove_reference < typename  boost::dispatch::meta::

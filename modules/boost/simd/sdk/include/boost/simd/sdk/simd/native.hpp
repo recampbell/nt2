@@ -117,15 +117,7 @@ namespace boost { namespace simd
     reference       operator[](std::size_t i)       { return data()[i]; }
     const_reference operator[](std::size_t i) const { return data()[i]; }
 
-#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
-    // workaround for GCC bug #52407 affecting GCC 4.6.3
-    union
-    {
-#endif
-      native_type data_;
-#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
-    };
-#endif
+    native_type data_;
 
     BOOST_FORCEINLINE
     iterator data()

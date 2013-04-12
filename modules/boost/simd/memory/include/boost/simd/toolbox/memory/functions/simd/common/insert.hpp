@@ -93,7 +93,7 @@ namespace boost { namespace simd { namespace ext
 
       A0 const& a0;
       A1& a1;
-      A2 const& a2;
+      A2 a2;
     };
 
     typedef A1& result_type;

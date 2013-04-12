@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (iterator_< scalar_< fundamental_<A0> > >)
-                                      (generic_< fundamental_<A1> >)
+                                      (generic_< integer_<A1> >)
                                       ((target_ < ast_< A2
                                                       , boost::simd::domain
                                                       >

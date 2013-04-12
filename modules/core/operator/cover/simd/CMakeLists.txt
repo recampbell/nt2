@@ -11,7 +11,6 @@
 SET( SOURCES
   unary_plus.cpp
   unary_minus.cpp
-#  store.cpp
 #  splat.cpp
   shift_right.cpp
   shift_left.cpp
@@ -24,7 +23,6 @@ SET( SOURCES
   logical_or.cpp
   logical_not.cpp
   logical_and.cpp
-#  load.cpp
   if_else.cpp
   divides.cpp
   complement.cpp

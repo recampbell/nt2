@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                                     , boost::simd::tag::altivec_
                                     , (A0)(A1)(A2)
                                     , (iterator_< scalar_< arithmetic_<A0> > >)
-                                      (scalar_< fundamental_<A1> >)
+                                      (scalar_< integer_<A1> >)
                                       ((target_
                                         < simd_ < arithmetic_<A2>
                                                 , boost::simd::tag::altivec_

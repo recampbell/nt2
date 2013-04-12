@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/scalar/ceil.hpp>
 #include <boost/simd/include/functions/scalar/iceil.hpp>
 #include <boost/simd/include/functions/scalar/divs.hpp>
+#include <boost/simd/include/functions/scalar/minusone.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -48,22 +49,22 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
-        return boost::simd::rdivide(static_cast<A0>(a0+(boost::simd::minusone(a1)), a1);
-                                    else
-                                      return (a0) ? boost::simd::Valmax<result_type>() : boost::simd::Zero<result_type>();
-                                    }
-    };
+        return boost::simd::rdivide(static_cast<A0>(a0+boost::simd::minusone(a1)), a1);
+      else
+        return (a0) ? boost::simd::Valmax<result_type>() : boost::simd::Zero<result_type>();
+    }
+  };
 
 
-    BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)
-                                     , (scalar_< floating_<A0> >)
-                                       (scalar_< floating_<A0> >)
-                                     )
-    {
-      typedef A0 result_type;
-      BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::ceil(a0/a1); }
-    };
-  } } }
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)
+                                   , (scalar_< floating_<A0> >)
+                                     (scalar_< floating_<A0> >)
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::ceil(a0/a1); }
+  };
+} } }
 
 #ifdef BOOST_MSVC
 #pragma warning(pop)

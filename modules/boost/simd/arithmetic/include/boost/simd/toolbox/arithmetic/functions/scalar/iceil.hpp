@@ -28,8 +28,8 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iceil_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
+                                   , (scalar_< floating_<A0> >)
+                                   )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
@@ -37,13 +37,11 @@ namespace boost { namespace simd { namespace ext
       if (boost::simd::is_inf(a0))
       {
         if (boost::simd::is_ltz(a0))
-        return boost::simd::Valmin<result_type>();
+          return boost::simd::Valmin<result_type>();
         else
-        return  boost::simd::Valmax<result_type>();
+          return  boost::simd::Valmax<result_type>();
       }
-
-      if (boost::simd::is_nan(a0)) return Zero<result_type>();
-
+      if (boost::simd::is_nan(a0)) return boost::simd::Zero<result_type>();
       return result_type(boost::simd::ceil(a0));
     }
   };

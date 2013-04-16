@@ -17,38 +17,38 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
-      split(a0, a0l, a0h);
-      split(a1, a1l, a1h);
-      return group( boost::simd::divs(a0l, a1l)
-                  , boost::simd::divs(a0h, a1h)
-                  );
+      boost::simd::split(a0, a0l, a0h);
+      boost::simd::split(a1, a1l, a1h);
+      return boost::simd::group( boost::simd::divs(a0l, a1l)
+                               , boost::simd::divs(a0h, a1h)
+                               );
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
-      split(a0, a0l, a0h);
-      split(a1, a1l, a1h);
-      return group( boost::simd::divs(a0l, a1l)
-                  , boost::simd::divs(a0h, a1h)
-                  );
+      boost::simd::split(a0, a0l, a0h);
+      boost::simd::split(a1, a1l, a1h);
+      return boost::simd::group( boost::simd::divs(a0l, a1l)
+                               , boost::simd::divs(a0h, a1h)
+                               );
     }
   };
 } } }

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ISQRT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ISQRT_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_ISQRT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_ISQRT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/isqrt.hpp>
 #include <boost/simd/include/functions/simd/sqrt.hpp>
@@ -17,8 +17,8 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::isqrt_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_< floating_<A0>, X >))
+                       (A0),
+                       ((generic_< floating_<A0> >))
                       )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;

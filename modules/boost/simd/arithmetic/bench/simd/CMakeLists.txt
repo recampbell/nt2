@@ -16,6 +16,7 @@ SET( SOURCES
   random.cpp
   logical_xor.cpp
   ifloor.cpp
+  isqrt.cpp
   fast_hypot.cpp
   iround.cpp
   arg.cpp

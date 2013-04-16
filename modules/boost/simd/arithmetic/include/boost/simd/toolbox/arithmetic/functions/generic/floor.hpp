@@ -6,19 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_FLOOR_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_FLOOR_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/floor.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/scalar/selsub.hpp>
-#include <boost/simd/include/functions/scalar/round.hpp>
-#include <boost/simd/include/functions/scalar/is_greater.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/round.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (generic_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -30,14 +31,17 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)
+                            , (generic_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = boost::simd::round(a0);
-      return selsub(gt(d0,a0),d0,One<A0>());
+      const result_type d0 = boost::simd::round(a0);
+      return boost::simd::selsub(boost::simd::gt(d0,a0),
+                                 d0,
+                                 boost::simd::One<A0>()
+                                );
     }
   };
 } } }

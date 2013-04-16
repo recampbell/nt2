@@ -6,6 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+//#define BOOST_SIMD_ALWAYS_USE_CORRECT_FMA
 #define NT2_BENCH_MODULE "nt2 boost.simd.arithmetic toolbox - fma/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,7 @@
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
+
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////

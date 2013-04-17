@@ -13,45 +13,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_FMA_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
-/*
-  a true hard wired fma functor conform to the "one rounding" definition of fused multiply-add
-  is not available on every system.
-  All the way, it can always be emulated, but at a cost (at least 2 times slower than a*b+c)
-  which is not always acceptable: fma must be both accurate and fast.
-  The functor correct_fma of NT2 (which is never called in NT2 by any other functor)
-  always computes the correct fma result by emulation or by using  processor intrinsics
-  (if they exist).
 
-
-  fma call depends of four defines:
-
-  BOOST_SIMD_SINGLE_USE_CORRECT_FMA
-  BOOST_SIMD_DOUBLE_USE_CORRECT_FMA
-  BOOST_SIMD_ALWAYS_USE_CORRECT_FMA
-  BOOST_SIMD_NEVER_USE_CORRECT_FMA
-
-  By default none is defined and fma merely computes a0*a1+a2, except in simd
-  if the corresponding intrinsics exist.
-
-  The rationale of the default is: "use the speediest way",  and if occurs that if the
-  simd intrinsics exist precision and speed are simultaneously better.
-
-  if BOOST_SIMD_SINGLE_USE_CORRECT_FMA is defined, computations in float use correct_fma
-
-  if BOOST_SIMD_DOUBLE_USE_CORRECT_FMA is defined, computations in double use correct_fma
-
-  if BOOST_SIMD_ALWAYS_USE_CORRECT_FMA is defined, all computations use correct_fma
-
-  if BOOST_SIMD_NEVER_USE_CORRECT_FMA is defined no computations use correct fma (except
-  correct_fma itself!) but always a0*a1+a2, as the extra precision in rare cases has to
-  be avoided. This define has precedence over the other ones.
-
-  Note that the optimization process made by NT2 implies that expressions of
-  the form a*b+c are automagically trnsformed to fma(a, b, c).
-  If you do not want this to happen do:
-  z =  a*b;
-  z += c;
- */
 /*!
  * \ingroup boost_simd_arithmetic
  * \defgroup boost_simd_arithmetic_fma fma

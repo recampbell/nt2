@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_FMA4_SUPPORT
 
 #include <boost/simd/toolbox/arithmetic/functions/correct_fma.hpp>
+#include <boost/simd/include/functions/simd/fma.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return _mm_macc_ps(a0, a1, a2);
+      return fma(a0, a1, a2);
     }
   };
 
@@ -38,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return  _mm_macc_pd(a0, a1, a2);
+      return fma(a0, a1, a2);
     }
   };
 
@@ -52,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return  _mm256_macc_ps(a0, a1, a2);
+      return fma(a0, a1, a2);
     }
   };
 
@@ -66,7 +67,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return  _mm256_macc_pd(a0, a1, a2);
+      return fma(a0, a1, a2);
     }
   };
 } } }

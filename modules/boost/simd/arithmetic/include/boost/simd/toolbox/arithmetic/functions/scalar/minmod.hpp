@@ -11,7 +11,7 @@
 #include <boost/simd/toolbox/arithmetic/functions/minmod.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/scalar/min.hpp>
-#include <boost/simd/include/functions/scalar/is_lez.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_lez(a0*a1)? Zero<A0>(): boost::simd::min(a0, a1);
+      return is_ltz(a0^a1)? Zero<A0>(): boost::simd::min(a0, a1);
     }
   };
 
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_lez(a0*a1) ? Zero<A0>() : boost::simd::min(a0,a1);
+      return is_ltz(a0*a1) ? Zero<A0>() : boost::simd::min(a0,a1);
     }
   };
 } } }

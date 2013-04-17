@@ -11,7 +11,8 @@
 #include <boost/simd/toolbox/arithmetic/functions/correct_fma.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
-#include <boost/simd/include/functions/simd/fma.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/add.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -31,8 +32,8 @@ namespace boost { namespace simd { namespace ext
       boost::simd::split(a0, a0l, a0h);
       boost::simd::split(a1, a1l, a1h);
       boost::simd::split(a2, a2l, a2h);
-      return group( boost::simd::fma(a0l, a1l, a2l)
-                  , boost::simd::fma(a0h, a1h, a2h)
+      return group( a0l*a1l+a2l)
+                  , a0h*a1h+a2h)
                   );
      }
   };

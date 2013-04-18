@@ -6,18 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_CEIL_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_CEIL_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_CEIL_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_CEIL_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/ceil.hpp>
-#include <boost/simd/include/functions/scalar/is_ltz.hpp>
-#include <boost/simd/include/functions/scalar/toint.hpp>
-#include <boost/simd/include/functions/scalar/if_else.hpp>
+#include <cmath>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, tag::cpu_, (A0)
-                            , (generic_< arithmetic_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -25,18 +23,28 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, tag::cpu_, (A0)
-                            , (generic_< floating_<A0> >)
+                            , (scalar_< single_<A0> >)
                             )
   {
     typedef A0 result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return boost::simd::if_else(boost::simd::is_ltz(a0),
-                                  boost::simd::toint(a0),
-                                  -boost::simd::toint(-a0));
+      return ::ceilf(a0);
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, tag::cpu_, (A0)
+                            , (scalar_< double_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return ::ceil(a0);
+    }
+  };
+
 } } }
 
 #endif

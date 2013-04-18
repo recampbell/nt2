@@ -42,6 +42,7 @@ SET( SOURCES
   minusone.cpp
   min.cpp
   max.cpp
+  negs.cpp
   idivround.cpp
   idivfloor.cpp
   idivfix.cpp

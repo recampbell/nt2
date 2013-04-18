@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ONEMINUS_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ONEMINUS_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_ONEMINUS_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_ONEMINUS_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/oneminus.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
@@ -17,26 +17,27 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::oneminus_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<signed_<A0>,X>))
+                           (A0),
+                           ((generic_<signed_<A0> >))
                           )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return One<A0>()-a0;
+      return boost::simd::One<A0>()-a0;
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::oneminus_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<unsigned_<A0>,X>))
+                       (A0),
+                       ((generic_<unsigned_<A0> >))
                        )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return One<result_type>()-min(a0, One<result_type>());
+      return boost::simd::One<result_type>()-
+        boost::simd::min(a0, boost::simd::One<result_type>());
     }
   };
 } } }

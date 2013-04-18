@@ -10,10 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_FLOOR_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/floor.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/simd/selsub.hpp>
-#include <boost/simd/include/functions/simd/round.hpp>
-#include <boost/simd/include/functions/simd/is_greater.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -37,11 +35,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const result_type d0 = boost::simd::round(a0);
-      return boost::simd::selsub(boost::simd::gt(d0,a0),
-                                 d0,
-                                 boost::simd::One<A0>()
-                                );
+      return boost::simd::if_else(boost::simd::is_gtz(a0),
+                                  boost::simd::toint(a0),
+                                  -boost::simd::toint(-a0));
     }
   };
 } } }

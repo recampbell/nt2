@@ -10,10 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_CEIL_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/ceil.hpp>
-#include <boost/simd/include/functions/simd/seladd.hpp>
-#include <boost/simd/include/functions/simd/round.hpp>
-#include <boost/simd/include/functions/simd/is_less.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
+#include <boost/simd/include/functions/scalar/toint.hpp>
+#include <boost/simd/include/functions/scalar/if_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -33,8 +32,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = round(a0);
-      return boost::simd::seladd(boost::simd::lt(d0, a0),d0,boost::simd::One<A0>());
+      return boost::simd::if_else(boost::simd::is_ltz(a0),
+                                  boost::simd::toint(a0),
+                                  -boost::simd::toint(-a0));
     }
   };
 } } }

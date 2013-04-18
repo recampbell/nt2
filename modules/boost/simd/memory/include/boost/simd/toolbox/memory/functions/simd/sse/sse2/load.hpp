@@ -66,10 +66,32 @@ namespace boost { namespace simd { namespace ext
   /// INTERNAL ONLY - Load register of SIMD float
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , boost::simd::tag::sse2_
+                                    , (A0)(A2)
+                                    , (iterator_< scalar_< single_<A0> > >)
+                                      ((target_ < simd_ < single_<A2>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 a0, const A2&) const
+    {
+      BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
+      return _mm_load_ps(a0);
+    }
+  };
+
+  /// INTERNAL ONLY - Load register of SIMD float
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+                                    , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
                                     , (iterator_< scalar_< single_<A0> > >)
                                       (scalar_< integer_<A1> >)
-                                      ((target_ < simd_ < double_<A2>
+                                      ((target_ < simd_ < single_<A2>
                                                         , boost::simd::tag::sse_
                                                         >
                                                 >
@@ -92,7 +114,7 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(A1)(A2)
                                     , (iterator_< scalar_< integer_<A0> > >)
                                       (scalar_< integer_<A1> >)
-                                      ((target_ < simd_ < double_<A2>
+                                      ((target_ < simd_ < integer_<A2>
                                                         , boost::simd::tag::sse_
                                                         >
                                                 >
@@ -114,7 +136,7 @@ namespace boost { namespace simd { namespace ext
                                     , boost::simd::tag::sse2_
                                     , (A0)(A2)
                                     , (iterator_< scalar_< integer_<A0> > >)
-                                      ((target_ < simd_ < double_<A2>
+                                      ((target_ < simd_ < integer_<A2>
                                                         , boost::simd::tag::sse_
                                                         >
                                                 >

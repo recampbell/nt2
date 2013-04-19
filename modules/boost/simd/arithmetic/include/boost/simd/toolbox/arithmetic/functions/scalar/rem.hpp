@@ -20,9 +20,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rem_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< arithmetic_<A0> >)
+                                     (scalar_< arithmetic_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -32,14 +33,15 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rem_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< floating_<A0> >)
+                                     (scalar_< floating_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if (a1) return a0-a1*idivfix(a0,a1);  else return a0;
+      if (a1) return a0-a1*boost::simd::idivfix(a0,a1);  else return a0;
     }
   };
 } } }

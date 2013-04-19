@@ -14,35 +14,38 @@
 #include <boost/simd/include/functions/simd/selsub.hpp>
 #include <boost/simd/include/functions/simd/divfix.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
-#include <boost/simd/include/functions/simd/is_invalid.hpp>
-#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rem_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<arithmetic_<A0>,X>))
+                                     ((simd_<arithmetic_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return selsub(is_nez(a1), a0,idivfix(a0,a1)*a1);
+      return boost::simd::selsub(boost::simd::is_nez(a1),
+                                 a0,
+                                 boost::simd::idivfix(a0,a1)*a1
+                                );
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rem_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
-                            )
+                                   , (A0)(X)
+                                   , ((simd_<floating_<A0>,X>))
+                                     ((simd_<floating_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      //      return b_or(is_invalid(a1), selsub(is_nez(a1), a0, tofloat(idivfix(a0,a1))*a1));
-      return if_nan_else(is_invalid(a1),
-                      selsub(is_nez(a1), a0, divfix(a0,a1)*a1));
-
+      return boost::simd::selsub(boost::simd::is_nez(a1),
+                                 a0,
+                                 boost::simd::divfix(a0,a1)*a1
+                                );
     }
   };
 } } }

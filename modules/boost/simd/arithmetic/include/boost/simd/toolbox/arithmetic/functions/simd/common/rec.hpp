@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return One<result_type>()/boost::simd::tofloat(a0);
+      return  boost::simd::tag::One<result_type>()/boost::simd::tofloat(a0);
     }
   };
 } } }

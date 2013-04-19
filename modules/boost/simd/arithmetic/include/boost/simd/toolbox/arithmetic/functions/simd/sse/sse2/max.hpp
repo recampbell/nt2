@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/arithmetic/functions/max.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
-#include <boost/simd/include/functions/simd/compare_less.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-       return seladd( lt(a0,a1),a0,a1-a0);
+       return boost::simd::seladd( boost::simd::lt(a0,a1),a0,a1-a0);
     }
   };
 

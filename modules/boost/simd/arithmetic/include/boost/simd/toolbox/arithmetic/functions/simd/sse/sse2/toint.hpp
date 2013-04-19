@@ -24,30 +24,30 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, boost::simd::tag::sse2_ , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
-      A0 aa0 = if_zero_else(is_nan(a0), a0);
-      const result_type v = make<result_type> ( static_cast<stype>(aa0[0])
-                                              , static_cast<stype>(aa0[1])
-                                              );
-      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), v);
+      A0 aa0 = boost::simd::if_zero_else(boost::simd::is_nan(a0), a0);
+      const result_type v = boost::simd::make<result_type> ( static_cast<stype>(aa0[0])
+                                                           , static_cast<stype>(aa0[1])
+                                                           );
+      return  boost::simd::if_else(eq(aa0, boost::simd::Inf<A0>()), boost::simd::Inf<result_type>(), v);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, boost::simd::tag::sse2_ , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 aa0 = if_zero_else(is_nan(a0), a0);
+      A0 aa0 = boost::simd::if_zero_else(is_nan(a0), a0);
       result_type that = _mm_cvttps_epi32(aa0);
-      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
+      return  boost::simd::if_else(boost::simd::eq(aa0, boost::simd::Inf<A0>()), boost::simd::Inf<result_type>(), that);
     }
   };
 } } }

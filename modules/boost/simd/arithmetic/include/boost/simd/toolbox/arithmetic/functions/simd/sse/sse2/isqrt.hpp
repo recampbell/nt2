@@ -43,19 +43,19 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_logical<A0>::type bA0;
-      bA0 const na  = is_nez(a0);
-      A0 n   = add(shri(a0, 4), Four<A0>());
-      A0 n1  = shri(n+a0/n, 1);
+      bA0 const na  =  boost::simd::is_nez(a0);
+      A0 n   = boost::simd::add(shri(a0, 4), Four<A0>());
+      A0 n1  = boost::simd::shri(n+a0/n, 1);
 
       bA0 ok = lt(n1, n);
-      n  = if_else(ok, n1, n);
-      n1 = if_else(ok, shri(n+a0/n, 1), n1);
+      n  = boost::simd::if_else(ok, n1, n);
+      n1 = boost::simd::if_else(ok, boost::simd::shri(n+a0/n, 1), n1);
 
-      ok = lt(n1, n);
-      n  = if_else(ok, n1, n);
-      n  = seladd( gt(n*n,a0), n, Mone<A0>());
+      ok = boost::simd::lt(n1, n);
+      n  = boost::simd::if_else(ok, n1, n);
+      n  = boost::simd::seladd( boost::simd::gt(n*n,a0), n, boost::simd::Mone<A0>());
 
-      return seladd(na, Zero<A0>(), n);
+      return boost::simd::seladd(na, boost::simd::Zero<A0>(), n);
     }
   };
 
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,signed>::type     int_type;
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type  uint_type;
-      return if_else_zero( is_gtz(a0)
+      return boost::simd::if_else_zero( is_gtz(a0)
                   , simd::bitwise_cast<int_type>(isqrt( simd::bitwise_cast<uint_type>(a0)))
                   );
     }
@@ -85,40 +85,40 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0;
       bA0 const na = is_nez(a0);
-      A0 const z1 = add(shri(a0, 6),    boost::simd::integral_constant<A0,16>());
-      A0 const z2 = add(shri(a0,10),   boost::simd::integral_constant<A0,256>());
-      A0 const z3 = add(shri(a0,13),  boost::simd::integral_constant<A0,2048>());
-      A0 const z4 = add(shri(a0,16), boost::simd::integral_constant<A0,16384>());
-      static A0 const one = One<A0>();
+      A0 const z1 = boost::simd::add(boost::simd::shri(a0, 6),    boost::simd::integral_constant<A0,16>());
+      A0 const z2 = boost::simd::add(boost::simd::shri(a0,10),   boost::simd::integral_constant<A0,256>());
+      A0 const z3 = boost::simd::add(boost::simd::shri(a0,13),  boost::simd::integral_constant<A0,2048>());
+      A0 const z4 = boost::simd::add(boost::simd::shri(a0,16), boost::simd::integral_constant<A0,16384>());
+      static A0 const one = boost::simd::One<A0>();
 
-      A0 n  = if_else( gt(a0, boost::simd::integral_constant<A0,177155824>())
+      A0 n  = boost::simd::if_else( boost::simd::gt(a0, boost::simd::integral_constant<A0,177155824>())
                   , z4
-                  , if_else( gt(a0, boost::simd::integral_constant<A0,4084387>())
+                  , boost::simd::if_else( boost::simd::gt(a0, boost::simd::integral_constant<A0,4084387>())
                         , z3
-                        , if_else( gt(a0, boost::simd::integral_constant<A0,31679>())
+                        , boost::simd::if_else( boost::simd::gt(a0, boost::simd::integral_constant<A0,31679>())
                                 , z2
                                 , z1
                                 )
                         )
                   );
-      bA0 ok =  is_gtz(n);
-      n = if_else(ok, n, one);
-      A0 n1 = if_else(ok, shri(n+a0/n, 1), one);
+      bA0 ok =  boost::simd::is_gtz(n);
+      n = boost::simd::if_else(ok, n, one);
+      A0 n1 = boost::simd::if_else(ok, boost::simd::shri(n+a0/n, 1), one);
 
-      ok = lt(n1, n);
-      n  = if_else(ok, n1, n);
-      n1 = if_else(ok, shri(n+a0/n, 1), n1);
+      ok = boost::simd::lt(n1, n);
+      n  = boost::simd::if_else(ok, n1, n);
+      n1 = boost::simd::if_else(ok, boost::simd::shri(n+a0/n, 1), n1);
 
-      ok =  lt(n1, n);
-      n  = if_else(ok, n1, n);
-      n1 = if_else(ok, shri(n+a0/n, 1), n1);
+      ok =  boost::simd::lt(n1, n);
+      n  = boost::simd::if_else(ok, n1, n);
+      n1 = boost::simd::if_else(ok, shri(n+a0/n, 1), n1);
 
-      ok =  lt(n1, n);
-      n  = if_else(ok, n1, n);
+      ok =  boost::simd::lt(n1, n);
+      n  = boost::simd::if_else(ok, n1, n);
 
-      A0 tmp = sub(n*sub(n, one), one);
-      n  = seladd( is_greater_equal(tmp+n,a0), n, Mone<A0>());
-      n =  seladd(na, Zero<A0>(), n);
+      A0 tmp = boost::simd::sub(n*sub(n, one), one);
+      n  = boost::simd::seladd( is_greater_equal(tmp+n,a0), n, Mone<A0>());
+      n =  boost::simd::seladd(na, Zero<A0>(), n);
 
       return n;
     }
@@ -145,31 +145,31 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_logical<A0>::type bA0;
-      bA0 const  na = is_nez(a0);
-      A0 const  z1 = add(shri(a0, 6), boost::simd::integral_constant<A0, 16>());
-      A0 const  z2 = add(shri(a0,10), boost::simd::integral_constant<A0, 256>());
+      bA0 const  na = boost::simd::is_nez(a0);
+      A0 const  z1 = boost::simd::add(boost::simd::shri(a0, 6), boost::simd::integral_constant<A0, 16>());
+      A0 const  z2 = boost::simd::add(boost::simd::shri(a0,10), boost::simd::integral_constant<A0, 256>());
       A0 const  C1 = boost::simd::integral_constant<A0, 31679>();
       // choose a proper starting point for approximation
-      A0 n  = if_else(lt(a0, C1), z1, z2);
-      bA0 ok =  is_gtz(n);
-      static A0 const one = One<A0>();
-      n  = if_else(ok, n, one);
+      A0 n  = boost::simd::if_else(boost::simd::lt(a0, C1), z1, z2);
+      bA0 ok =  boost::simd::is_gtz(n);
+      static A0 const one = boost::simd::One<A0>();
+      n  = boost::simd::if_else(ok, n, one);
 
-      A0 n1 = if_else(ok, shri(n+a0/n, 1), one);
+      A0 n1 = boost::simd::if_else(ok, boost::simd::shri(n+a0/n, 1), one);
 
-      ok = lt(n1, n);
-      n  = if_else(ok, n1, n);
-      n1 = if_else(ok, shri(n+a0/n, 1), n1);
+      ok = boost::simd::lt(n1, n);
+      n  = boost::simd::if_else(ok, n1, n);
+      n1 = boost::simd::if_else(ok, boost::simd::shri(n+a0/n, 1), n1);
 
-      ok = lt(n1, n);
-      n  = if_else(ok, n1, n);
-      n1 = if_else(ok, shri(n+a0/n, 1), n1);
+      ok = boost::simd::lt(n1, n);
+      n  = boost::simd::if_else(ok, n1, n);
+      n1 = boost::simd::if_else(ok, boost::simd::shri(n+a0/n, 1), n1);
 
-      ok =  lt(n1, n);
-      n  = if_else(ok, n1, n);
-      n  = seladd( gt(n*n,a0), n, Mone<A0>());
+      ok =  boost::simd::lt(n1, n);
+      n  = boost::simd::if_else(ok, n1, n);
+      n  = boost::simd::seladd( boost::simd::gt(n*n,a0), n, Mone<A0>());
 
-      return seladd(na, Zero<A0>(), n);
+      return seladd(na,boost::simd::Zero<A0>(), n);
     }
   };
 } } }

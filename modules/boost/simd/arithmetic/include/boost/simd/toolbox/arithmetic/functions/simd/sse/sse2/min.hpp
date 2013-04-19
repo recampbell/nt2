@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/min.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-       return seladd(gt(a0,a1),a0,a1-a0);
+       return boost::simd::seladd(boost::simd::gt(a0,a1),a0,a1-a0);
     }
   };
 

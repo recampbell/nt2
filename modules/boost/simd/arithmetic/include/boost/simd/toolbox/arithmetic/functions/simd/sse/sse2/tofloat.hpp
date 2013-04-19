@@ -62,10 +62,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
-      si_type a00 = bitwise_cast<si_type>(a0);
-      si_type a01 = bitwise_notand(Signmask<si_type>(), a0);
-      result_type inc = if_else_zero(is_ltz(a00), Twoto31<result_type>());
-      return tofloat(a01)+inc;
+      si_type a00 = boost::simd::bitwise_cast<si_type>(a0);
+      si_type a01 = boost::simd::bitwise_notand(Signmask<si_type>(), a0);
+      result_type inc = boost::simd::if_else_zero(boost::simd::is_ltz(a00), boost::simd::Twoto31<result_type>());
+      return boost::simd::tofloat(a01)+inc;
     }
   };
 

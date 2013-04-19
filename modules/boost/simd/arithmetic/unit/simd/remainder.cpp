@@ -56,4 +56,14 @@ NT2_TEST_CASE_TPL ( remainder_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(remainder(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(remainder(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(remainder(boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::One<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::One<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::One<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::Inf<vT>(), boost::simd::Zero<vT>()), boost::simd::Nan<vT>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::Minf<vT>(), boost::simd::Zero<vT>()), boost::simd::Nan<vT>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::Nan<vT>(), boost::simd::Zero<vT>()), boost::simd::Nan<vT>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::One<vT>(), boost::simd::Zero<vT>()), boost::simd::Nan<vT>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::Inf<vT>(), boost::simd::One<vT>()), boost::simd::Nan<vT>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::Minf<vT>(), boost::simd::One<vT>()), boost::simd::Nan<vT>(), 0);
+  NT2_TEST_ULP_EQUAL(remainder(boost::simd::Nan<vT>(), boost::simd::One<vT>()), boost::simd::Nan<vT>(), 0);
 } // end of test for floating_

@@ -6,13 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REMAINDER_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REMAINDER_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_REMAINDER_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_REMAINDER_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/remainder.hpp>
-#include <boost/simd/include/functions/scalar/abs.hpp>
-#include <boost/simd/include/functions/scalar/negate.hpp>
-#include <boost/simd/include/functions/scalar/idivround.hpp>
-#include <boost/simd/include/functions/scalar/divround.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/idivround.hpp>
+#include <boost/simd/include/functions/simd/divround.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // The remainder() function computes the remainder of dividing x by y.  The
 // return value is x-n*y, where n is the value x / y, rounded to the nearest
@@ -23,22 +22,23 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::remainder_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
-                            )
+                                   , (A0)
+                                   , (generic_< arithmetic_<A0> >)
+                                     (generic_< arithmetic_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if (!a1) return a0;
       return a0-idivround(a0, a1)*a1;
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::remainder_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
-                            )
+                                   , (A0)
+                                   , (generic_< floating_<A0> >)
+                                     (generic_< floating_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)

@@ -15,22 +15,22 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      const result_type v = boost::simd::abs(a0);
-      const result_type t2n = boost::simd::Twotonmb<result_type>();
-      volatile result_type d0 = (v+t2n);
-      volatile result_type d = (d0-t2n);
-      d = (v < t2n)?d:v;
-      return a0 < Zero<A0>() ? -d : d;
-    }
-  };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
+//                             , (A0)
+//                             , (scalar_< floating_<A0> >)
+//                             )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL(1)
+//     {
+//       const result_type v = boost::simd::abs(a0);
+//       const result_type t2n = boost::simd::Twotonmb<result_type>();
+//       volatile result_type d0 = (v+t2n);
+//       volatile result_type d = (d0-t2n);
+//       d = (v < t2n)?d:v;
+//       return a0 < Zero<A0>() ? -d : d;
+//     }
+//   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
                             , (A0)
@@ -41,6 +41,30 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
+                            , (A0)
+                            , (scalar_< single_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return ::roundf(a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
+                            , (A0)
+                            , (scalar_< double_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return ::round(a0);
     }
   };
 } } }

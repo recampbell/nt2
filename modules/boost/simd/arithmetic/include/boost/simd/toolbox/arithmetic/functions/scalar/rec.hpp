@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      return a0 ?  boost::simd::tag::One<type>()/a0 :  boost::simd::tag::Inf<type>();
+      return a0 ?  boost::simd::One<type>()/a0 :  boost::simd::Inf<type>();
     }
   };
 
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return  boost::simd::tag::One<result_type>()/a0;
+      return  boost::simd::One<result_type>()/a0;
     }
   };
 } } }

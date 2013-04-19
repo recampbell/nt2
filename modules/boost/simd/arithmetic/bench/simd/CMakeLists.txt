@@ -37,6 +37,7 @@ SET( SOURCES
   sqrt.cpp
   sqr.cpp
   rec.cpp
+  round2even.cpp
   oneplus.cpp
   oneminus.cpp
   minusone.cpp

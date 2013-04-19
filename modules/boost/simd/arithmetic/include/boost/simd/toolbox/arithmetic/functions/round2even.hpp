@@ -9,14 +9,14 @@
 /*!
  * \file
 **/
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_ROUND_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_ROUND_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_ROUND2EVEN_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_ROUND2EVEN_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_round round
+ * \defgroup boost_simd_arithmetic_round2even round2even
  *
  * \par Description
  * return a value of the same type of the entry
@@ -25,7 +25,7 @@
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/round.hpp>
+ * #include <nt2/include/functions/round2even.hpp>
  * \endcode
  *
  *
@@ -35,12 +35,12 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::round_(A0)>::type
- *     round(const A0 & a0);
+ *     meta::call<tag::round2even_(A0)>::type
+ *     round2even(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of round
+ * \param a0 the unique parameter of round2even
  *
  * \return a value of the same type as the parameter
  *
@@ -53,12 +53,12 @@
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag round_ of functor round
+     * \brief Define the tag round2even_ of functor round2even
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct round_ : ext::elementwise_<round_> { typedef ext::elementwise_<round_> parent; };
+    struct round2even_ : ext::elementwise_<round2even_> { typedef ext::elementwise_<round2even_> parent; };
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round2even_, round2even, 1)
 } }
 
 #endif

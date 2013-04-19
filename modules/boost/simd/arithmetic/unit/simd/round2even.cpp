@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - round/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - round2even/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 ///
-#include <boost/simd/toolbox/arithmetic/include/functions/round.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/round2even.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -25,10 +25,10 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( round_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( round2even_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using boost::simd::round;
-  using boost::simd::tag::round_;
+  using boost::simd::round2even;
+  using boost::simd::tag::round2even_;
   using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
@@ -38,21 +38,21 @@ NT2_TEST_CASE_TPL ( round_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<round_(vT)>::type r_t;
+  typedef typename boost::dispatch::meta::call<round2even_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(1.4))[0], 1, 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(1.5))[0], 2, 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(1.6))[0], 2, 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(2.5))[0], 3, 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Half<vT>())[0], boost::simd::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Mhalf<vT>())[0], boost::simd::Mone<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(round(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.4))[0], 1, 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.5))[0], 2, 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(1.6))[0], 2, 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::splat<vT>(2.5))[0], 2, 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Half<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Mhalf<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(round2even(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
 } // end of test for floating_

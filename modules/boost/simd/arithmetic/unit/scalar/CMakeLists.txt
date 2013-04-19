@@ -37,6 +37,7 @@ SET( SOURCES
   trunc.cpp
   ceil.cpp
   round.cpp
+  round2even.cpp
   floor.cpp
   two_split.cpp
   two_prod.cpp

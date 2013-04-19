@@ -42,11 +42,16 @@ NT2_TEST_CASE_TPL ( rem_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(rem(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(rem(boost::simd::Inf<T>(), boost::simd::Zero<T>()), boost::simd::Inf<T>(), 0);
+  NT2_TEST_ULP_EQUAL(rem(boost::simd::Zero<T>(), boost::simd::Inf<T>()), boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(rem(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(rem(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(rem(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(rem(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(rem(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(rem(boost::simd::One<T>(), boost::simd::Inf<T>()), boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(rem(boost::simd::One<T>(), boost::simd::Minf<T>()), boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(rem(boost::simd::One<T>(), boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( rem_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)

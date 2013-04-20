@@ -27,6 +27,7 @@ SET( SOURCES
   ifloor.cpp
   fast_hypot.cpp
   iround.cpp
+  iround2even.cpp
   arg.cpp
   remainder.cpp
   rem.cpp

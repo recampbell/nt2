@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND_HPP_INCLUDED
-#include <boost/simd/toolbox/arithmetic/functions/iround.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND2EVEN_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND2EVEN_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/iround2even.hpp>
 #include <boost/simd/include/functions/scalar/seladd.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/functions/scalar/is_inf.hpp>
 #include <boost/simd/include/functions/scalar/is_ltz.hpp>
-#include <boost/simd/include/functions/scalar/round.hpp>
+#include <boost/simd/include/functions/scalar/round2even.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
@@ -21,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround2even_, tag::cpu_ , (A0)
                             , (scalar_< fundamental_<A0> >)
                                    )
   {
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround2even_, tag::cpu_ , (A0)
                                    , (scalar_< floating_<A0> >)
                                    )
   {
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
         if (boost::simd::is_ltz(a0)) return boost::simd::Valmin<result_type>();
         else return boost::simd:: Valmax<result_type>();
       }
-      return result_type(boost::simd::round(a0));
+      return result_type(boost::simd::round2even(a0));
     }
   };
 } } }

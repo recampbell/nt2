@@ -18,17 +18,19 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, tag::cpu_, (A0)(X)
-                            , ((simd_<integer_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, tag::cpu_,
+                                     (A0)
+                                   , ((generic_<integer_<A0> >))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, boost::simd::tag::simd_, (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, boost::simd::tag::simd_,
+                                     (A0)
+                                   , ((generic_<floating_<A0> >))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
@@ -37,8 +39,8 @@ namespace boost { namespace simd { namespace ext
       const result_type t2n = boost::simd::Twotonmb<A0>();
       const result_type d0  = v+t2n;
       const result_type d   = d0-t2n;
-      const result_type d1  = if_else(lt(v,t2n),d,v);
-      return (d1^bitofsign(a0));
+      const result_type d1  = boost::simd::if_else(boost::simd::lt(v,t2n),d,v);
+      return (boost::simd::bitwise_xor(d1, boost::simd::bitofsign(a0)));
     }
   };
 } } }

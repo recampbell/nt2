@@ -15,7 +15,6 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/round.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -38,12 +37,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
         typedef typename meta::scalar_of<result_type>::type sr_type;
-        A0 tmp = round(a0);
-        const A0 vx = splat<A0>(Valmax<sr_type>());
-        const A0 vn = splat<A0>(Valmin<sr_type>());
-        return if_else(gt(tmp, vx), Valmax<result_type>(),
-                       if_else(lt(tmp, vn), Valmin<result_type>(),
-                               toint(tmp)));
+        A0 tmp = boost::simd::round(a0);
+        const A0 vx = boost::simd::splat<A0>(boost::simd::Valmax<sr_type>());
+        const A0 vn = boost::simd::splat<A0>(boost::simd::Valmin<sr_type>());
+        return boost::simd::if_else(gt(tmp, vx), boost::simd::Valmax<result_type>(),
+                       boost::simd::if_else(boost::simd::lt(tmp, vn), boost::simd::Valmin<result_type>(),
+                               boost::simd::toint(tmp)));
       }
   };
 } } }
